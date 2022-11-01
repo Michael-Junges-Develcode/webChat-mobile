@@ -1,6 +1,5 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {TextInput} from 'react-native';
 import {
   Container,
   Profile,
@@ -13,7 +12,6 @@ import {
   CommentLabel,
   Separator,
   CommentInput,
-  CommentInputWrapper,
   ContentText,
 } from './styles.post';
 
@@ -39,7 +37,6 @@ export function Post() {
       <Separator theme={colors} />
       <CommentsWrapper>
         <CommentLabel theme={colors}>Deixe seu comentário</CommentLabel>
-
         <CommentInput theme={colors} placeholder="Deixe seu comentário" />
       </CommentsWrapper>
     </Container>

@@ -14,12 +14,13 @@ export const Container = styled.View`
 export const UserInfoWrapper = styled.View`
   height: 60px;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const Profile = styled.Image.attrs({})`
   width: 60px;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 10px;
 `;
 
 export const UserTextWrapper = styled.View`
@@ -62,13 +63,6 @@ export const CommentsWrapper = styled.View`
   align-items: flex-start;
 `;
 
-export const CommentInputWrapper = styled.View`
-  background-color: black;
-  width: 100%;
-  height: 60px;
-  border-radius: 10px;
-`;
-
 export const CommentInput = styled.TextInput.attrs(props => ({
   placeholderTextColor: props.theme.textLight,
   color: props.theme.text,
@@ -77,4 +71,6 @@ export const CommentInput = styled.TextInput.attrs(props => ({
   width: 100%;
   height: 60px;
   border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 `;
