@@ -1,16 +1,17 @@
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView} from 'react-native';
+import {Post} from '../../components/Post/Post';
+import {ScrollContainer} from './styles.feed';
 
 export function Feed() {
+  const {colors} = useTheme();
+
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'violet',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text style={{fontSize: 26, color: 'black'}}>Feed</Text>
-    </View>
+    <ScrollView contentContainerStyle={{backgroundColor: colors.background}}>
+      <Post />
+      <Post />
+      <Post />
+    </ScrollView>
   );
 }
