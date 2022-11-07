@@ -1,6 +1,8 @@
+import {ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useMemo} from 'react';
+import React from 'react';
 import {useColorScheme} from 'react-native';
+import {client} from './src/global/api/client';
 import {DarkTheme, LightTheme} from './src/global/themes/theme';
 import {TopTabs} from './src/routes/TopTabs';
 
@@ -9,9 +11,11 @@ const App = () => {
   const themePreference = scheme === 'dark' ? DarkTheme : LightTheme;
 
   return (
-    <NavigationContainer theme={themePreference}>
-      <TopTabs />
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer theme={themePreference}>
+        <TopTabs />
+      </NavigationContainer>
+    </ApolloProvider>
   );
 };
 

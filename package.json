@@ -10,12 +10,15 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
     "@eva-design/eva": "^2.1.1",
     "@react-navigation/drawer": "^6.5.0",
     "@react-navigation/material-top-tabs": "^6.3.0",
     "@react-navigation/native": "^6.0.13",
     "@types/styled-components": "^5.1.26",
     "@ui-kitten/components": "^5.1.2",
+    "graphql": "^16.6.0",
+    "moment": "^2.29.4",
     "react": "18.1.0",
     "react-native": "0.70.4",
     "react-native-gesture-handler": "^2.8.0",

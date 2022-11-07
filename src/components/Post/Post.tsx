@@ -1,5 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
+import {Comment} from '../Comment/Comments';
 import {
   Container,
   Profile,
@@ -15,8 +16,28 @@ import {
   ContentText,
 } from './styles.post';
 
-export function Post() {
+interface Comment {
+  content: string;
+  author: string;
+  date: string;
+  id: number;
+}
+
+interface Props {
+  comments: Comment[];
+}
+
+export function Post({comments}: Props) {
   const {colors} = useTheme();
+
+  const commentList = comments?.map(comment => (
+    <Comment
+      content={comment.content}
+      author={comment.author}
+      date={comment.date}
+      key={comment.id}
+    />
+  ));
 
   return (
     <Container theme={colors}>
@@ -39,6 +60,7 @@ export function Post() {
         <CommentLabel theme={colors}>Deixe seu comentário</CommentLabel>
         <CommentInput theme={colors} placeholder="Deixe seu comentário" />
       </CommentsWrapper>
+      {commentList}
     </Container>
   );
 }
