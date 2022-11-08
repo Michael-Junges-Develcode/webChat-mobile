@@ -1,3 +1,4 @@
+import {gql} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Comment} from '../Comment/Comments';
@@ -17,9 +18,9 @@ import {
 } from './styles.post';
 
 interface Comment {
-  content: string;
-  author: string;
-  date: string;
+  comment: string;
+  author: {name: string};
+  createdAt: string;
   id: number;
 }
 
@@ -32,9 +33,9 @@ export function Post({comments}: Props) {
 
   const commentList = comments?.map(comment => (
     <Comment
-      content={comment.content}
-      author={comment.author}
-      date={comment.date}
+      content={comment.comment}
+      author={comment.author.name}
+      date={comment.createdAt}
       key={comment.id}
     />
   ));

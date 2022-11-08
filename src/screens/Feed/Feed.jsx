@@ -1,11 +1,40 @@
+import {gql, useQuery} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {Post} from '../../components/Post/Post';
-import {ScrollContainer} from './styles.feed';
 
 export function Feed() {
   const {colors} = useTheme();
+
+  const getFirstPosts = gql`
+    query GetFirstPostsPage {
+      getFirstPostsPage {
+        id
+        author {
+          name
+        }
+        content
+        createdAt
+        comments {
+          comment
+          id
+          author {
+            name
+          }
+          createdAt
+        }
+      }
+    }
+  `;
+
+  const {loading, error, data} = useQuery(getFirstPosts);
+  const response = data?.getFirstPostsPage;
+
+  useEffect(() => {
+    !!data && console.log(response);
+    !!error && console.log(error);
+  }, [data, error]);
 
   const comments = [
     {
@@ -24,7 +53,7 @@ export function Feed() {
 
   return (
     <ScrollView contentContainerStyle={{backgroundColor: colors.background}}>
-      <Post comments={comments} />
+      <Post comments={response.comments} />
       <Post />
       <Post />
     </ScrollView>
