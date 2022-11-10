@@ -43,6 +43,8 @@ export const ContentText = styled.Text`
   color: ${text};
 `;
 
+export const Date = styled(UserBio)``;
+
 export const CommentLabel = styled(Username)`
   margin-top: 15px;
   margin-bottom: 15px;

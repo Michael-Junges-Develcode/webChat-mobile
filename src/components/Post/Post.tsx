@@ -1,6 +1,9 @@
 import {gql} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
+import {Button} from '@ui-kitten/components';
+import moment from 'moment';
 import React from 'react';
+import Animated, {FadeInRight, FadeOut, Layout} from 'react-native-reanimated';
 import {Comment} from '../Comment/Comments';
 import {
   Container,
@@ -15,6 +18,7 @@ import {
   Separator,
   CommentInput,
   ContentText,
+  Date,
 } from './styles.post';
 
 interface Comment {
@@ -26,10 +30,24 @@ interface Comment {
 
 interface Props {
   comments: Comment[];
+  content: string;
+  author: {
+    name: string;
+  };
+  createdAt: string;
+  deleteCallback: () => void;
 }
 
-export function Post({comments}: Props) {
+export function Post({
+  comments,
+  author,
+  content,
+  createdAt,
+  deleteCallback,
+}: Props) {
   const {colors} = useTheme();
+  moment.locale('pt-br');
+  const relativeTime = moment(createdAt).fromNow();
 
   const commentList = comments?.map(comment => (
     <Comment
@@ -41,27 +59,30 @@ export function Post({comments}: Props) {
   ));
 
   return (
-    <Container theme={colors}>
-      <UserInfoWrapper>
-        <Profile source={require('../../global/assets/images/profile.jpg')} />
-        <UserTextWrapper>
-          <Username theme={colors}>Michael Junges</Username>
-          <UserBio theme={colors}>Fullstack Developer</UserBio>
-        </UserTextWrapper>
-      </UserInfoWrapper>
-      <ContentWrapper>
-        <ContentText theme={colors}>
-          Olá pessoal isso aqui é um post de exmplo eladj fmafl sdkcol oaofiw
-          mamakedj sskfjeia
-        </ContentText>
-        <ContentText theme={colors}>Até mais! 🇧🇷</ContentText>
-      </ContentWrapper>
-      <Separator theme={colors} />
-      <CommentsWrapper>
-        <CommentLabel theme={colors}>Deixe seu comentário</CommentLabel>
-        <CommentInput theme={colors} placeholder="Deixe seu comentário" />
-      </CommentsWrapper>
-      {commentList}
-    </Container>
+    <Animated.View
+      entering={FadeInRight}
+      exiting={FadeOut}
+      layout={Layout.delay(50)}>
+      <Container theme={colors}>
+        <UserInfoWrapper>
+          <Profile source={require('../../global/assets/images/profile.jpg')} />
+          <UserTextWrapper>
+            <Username theme={colors}>{author.name}</Username>
+            <UserBio theme={colors}>Fullstack Developer</UserBio>
+          </UserTextWrapper>
+          <Date theme={colors}>{relativeTime}</Date>
+        </UserInfoWrapper>
+        <ContentWrapper>
+          <ContentText theme={colors}>{content}</ContentText>
+        </ContentWrapper>
+        <Separator theme={colors} />
+        <CommentsWrapper>
+          <CommentLabel theme={colors}>Deixe seu comentário</CommentLabel>
+          <Button onPress={() => deleteCallback()} />
+          <CommentInput theme={colors} placeholder="Deixe seu comentário" />
+        </CommentsWrapper>
+        {commentList}
+      </Container>
+    </Animated.View>
   );
 }

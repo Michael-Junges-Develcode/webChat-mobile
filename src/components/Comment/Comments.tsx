@@ -1,7 +1,15 @@
 import {useTheme} from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
-import {Container, Content} from './styles.comment';
+import {
+  Container,
+  Content,
+  UserInfoWrapper,
+  Profile,
+  UserAndDateWrapper,
+  Username,
+  Date,
+} from './styles.comment';
 
 interface Props {
   content: string;
@@ -17,9 +25,14 @@ export function Comment({content, author, date}: Props) {
 
   return (
     <Container theme={colors}>
-      <Content theme={colors}>{author}</Content>
+      <UserAndDateWrapper>
+        <UserInfoWrapper>
+          <Profile source={require('../../global/assets/images/profile.jpg')} />
+          <Username theme={colors}>{author}</Username>
+        </UserInfoWrapper>
+        <Date theme={colors}>{relativeTime}</Date>
+      </UserAndDateWrapper>
       <Content theme={colors}>{content}</Content>
-      <Content theme={colors}>{relativeTime}</Content>
     </Container>
   );
 }

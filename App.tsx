@@ -1,5 +1,7 @@
 import {ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
+import {ApplicationProvider} from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 import React from 'react';
 import {useColorScheme} from 'react-native';
 import {client} from './src/global/api/client';
@@ -12,9 +14,11 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer theme={themePreference}>
-        <TopTabs />
-      </NavigationContainer>
+      <ApplicationProvider {...eva} theme={{...eva.dark, ...DarkTheme.colors}}>
+        <NavigationContainer theme={themePreference}>
+          <TopTabs />
+        </NavigationContainer>
+      </ApplicationProvider>
     </ApolloProvider>
   );
 };
