@@ -7,6 +7,7 @@ import {useColorScheme} from 'react-native';
 import {client} from './src/global/api/client';
 import {DarkTheme, LightTheme} from './src/global/themes/theme';
 import {TopTabs} from './src/routes/TopTabs';
+import {default as theme} from './src/global/themes/custom-theme.json';
 
 const App = () => {
   const scheme = useColorScheme();
@@ -14,7 +15,7 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <ApplicationProvider {...eva} theme={{...eva.dark, ...DarkTheme.colors}}>
+      <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
         <NavigationContainer theme={themePreference}>
           <TopTabs />
         </NavigationContainer>
