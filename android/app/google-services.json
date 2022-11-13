@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "202314352073",
+    "project_id": "webchat-13aaf",
+    "storage_bucket": "webchat-13aaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202314352073:android:983224b6c606fb0fc61418",
+        "android_client_info": {
+          "package_name": "com.project23"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202314352073-15fai6hclq3ra3sqi5glpmv54so1tj5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project23",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "202314352073-hej1e324ik9pi2h7hekbb6lrbmncdlcp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAMdldfjdzKX2k9-UFHRFzVGIL-BuC_JQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202314352073-hej1e324ik9pi2h7hekbb6lrbmncdlcp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

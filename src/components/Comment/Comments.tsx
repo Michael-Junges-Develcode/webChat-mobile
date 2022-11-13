@@ -14,10 +14,11 @@ import {
 interface Props {
   content: string;
   author: string;
+  photoUrl: string;
   date: string;
 }
 
-export function Comment({content, author, date}: Props) {
+export function Comment({content, author, photoUrl, date}: Props) {
   const {colors} = useTheme();
 
   moment.locale('pt-br');
@@ -27,7 +28,7 @@ export function Comment({content, author, date}: Props) {
     <Container theme={colors}>
       <UserAndDateWrapper>
         <UserInfoWrapper>
-          <Profile source={require('../../global/assets/images/profile.jpg')} />
+          <Profile source={{uri: photoUrl}} />
           <Username theme={colors}>{author}</Username>
         </UserInfoWrapper>
         <Date theme={colors}>{relativeTime}</Date>

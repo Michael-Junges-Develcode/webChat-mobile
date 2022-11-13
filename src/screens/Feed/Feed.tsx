@@ -4,9 +4,13 @@ import React, {useEffect, useState} from 'react';
 import Animated, {Layout} from 'react-native-reanimated';
 import {Post} from '../../components/Post/Post';
 
+interface Author {
+  name: string;
+  photoUrl: string;
+}
 interface Comment {
   comment: string;
-  author: {name: string};
+  author: Author;
   createdAt: string;
   id: number;
 }
@@ -14,9 +18,7 @@ interface Comment {
 interface Posts {
   comments: Comment[];
   content: string;
-  author: {
-    name: string;
-  };
+  author: Author;
   createdAt: string;
   id: number;
 }
@@ -30,6 +32,7 @@ export function Feed() {
         id
         author {
           name
+          photoUrl
         }
         content
         createdAt
@@ -38,6 +41,7 @@ export function Feed() {
           id
           author {
             name
+            photoUrl
           }
           createdAt
         }
@@ -45,7 +49,7 @@ export function Feed() {
     }
   `;
 
-  const deleteOwnPost = gql`
+  const deletePost = gql`
     mutation DeleteOwnPost($postId: Float!) {
       deleteOwnPost(postId: $postId) {
         id
@@ -68,11 +72,10 @@ export function Feed() {
 
   const {error, data} = useQuery(getFirstPosts);
   const [posts, setPosts] = useState<Posts[]>([]);
-  const [deletePost, {data: dataMut, error: errMut}] =
-    useMutation(deleteOwnPost);
+  const [deleteOwnPost, {data: dataMut}] = useMutation(deletePost);
 
   function deletePostFromState(postId: number) {
-    //deletePost({variables: {postId: postId}});
+    //deleteOwnPost({variables: {postId: postId}, onError: e => console.log(e)});
     setPosts(prevState => prevState.filter(post => post.id !== postId));
     console.log(postId);
   }
@@ -81,25 +84,25 @@ export function Feed() {
     <Post
       key={post.id}
       comments={post.comments}
-      author={post.author}
+      author={post.author.name}
       content={post.content}
+      photoUrl={post.author.photoUrl}
       createdAt={post.createdAt}
-      deleteCallback={() => deletePostFromState(post.id)}
+      deleteCallback={() => deletePostFromState(Number(post.id))}
     />
   ));
 
   useEffect(() => {
     !!error && console.log(error);
-    !!errMut && console.log(errMut);
-  }, [error, errMut]);
+  }, [error]);
 
   useEffect(() => {
     !!data && setPosts(data.getFirstPostsPage);
   }, [data]);
 
-  useEffect(() => {
-    console.log(dataMut);
-  }, [dataMut]);
+  // useEffect(() => {
+  //   console.log(dataMut);
+  // }, [dataMut]);
 
   return (
     <Animated.ScrollView

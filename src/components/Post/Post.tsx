@@ -2,7 +2,7 @@ import {gql} from '@apollo/client';
 import {useTheme} from '@react-navigation/native';
 import {Button} from '@ui-kitten/components';
 import moment from 'moment';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Animated, {FadeInRight, FadeOut, Layout} from 'react-native-reanimated';
 import {Comment} from '../Comment/Comments';
 import {
@@ -20,10 +20,15 @@ import {
   ContentText,
   Date,
 } from './styles.post';
+import 'moment/locale/pt-br';
 
+interface Author {
+  name: string;
+  photoUrl: string;
+}
 interface Comment {
   comment: string;
-  author: {name: string};
+  author: Author;
   createdAt: string;
   id: number;
 }
@@ -31,9 +36,8 @@ interface Comment {
 interface Props {
   comments: Comment[];
   content: string;
-  author: {
-    name: string;
-  };
+  author: string;
+  photoUrl: string;
   createdAt: string;
   deleteCallback: () => void;
 }
@@ -43,6 +47,7 @@ export function Post({
   author,
   content,
   createdAt,
+  photoUrl,
   deleteCallback,
 }: Props) {
   const {colors} = useTheme();
@@ -53,6 +58,7 @@ export function Post({
     <Comment
       content={comment.comment}
       author={comment.author.name}
+      photoUrl={comment.author.photoUrl}
       date={comment.createdAt}
       key={comment.id}
     />
@@ -65,9 +71,9 @@ export function Post({
       layout={Layout.delay(50)}>
       <Container theme={colors}>
         <UserInfoWrapper>
-          <Profile source={require('../../global/assets/images/profile.jpg')} />
+          <Profile source={{uri: photoUrl}} />
           <UserTextWrapper>
-            <Username theme={colors}>{author.name}</Username>
+            <Username theme={colors}>{author}</Username>
             <UserBio theme={colors}>Fullstack Developer</UserBio>
           </UserTextWrapper>
           <Date theme={colors}>{relativeTime}</Date>
